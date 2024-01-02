@@ -1,141 +1,279 @@
-// @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const branch = 'main'
+const repoUrl = `https://github.com/cloudberrydb`
+const twitterUrl = `https://twitter.com/cloudberrydb`
+const youtubeUrl = `https://youtube.com/@cloudberrydb`
+const slackUrl = 'https://communityinviter.com/apps/cloudberrydb/welcome'
 
-import { themes as prismThemes } from "prism-react-renderer";
-
-/** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "我的标题",
-  tagline: "Dinosaurs are cool",
-  favicon: "img/favicon.ico",
-
-  // Set the production url of your site here
-  url: "https://your-docusaurus-site.example.com",
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
-
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
-
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: "en",
-    locales: ["en"],
+    defaultLocale: 'en',
+    locales: ['en', 'zh'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+      },
+    },
+  },
+  title: 'Cloudberry Database',
+  tagline: 'Next Generation Unified Database for Analytics and AI',
+  favicon: '/img/favicon.ico',
+  url: 'https://cloudberrydb.org',
+  baseUrl: '/',
+  organizationName: 'cloudberrydb', // Usually your GitHub org/user name.
+  projectName: 'cloudberrydb-site', // Usually your repo name.
+
+//  deploymentBranch: 'gh-pages',
+//  githubHost: 'github.com',
+
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en','zh'],
+    path: 'i18n',
+    localeConfigs: {
+      en: {
+        label: 'English',
+      },
+      zh: {
+        label: '简体中文',
+        path: 'zh',
+      },
+    },
   },
 
   presets: [
     [
-      "classic",
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: "./sidebars.js",
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            'https://github.com/cloudberrydb/cloudberrydb-site/edit/main/',
+            editLocalizedFiles: true,
         },
         blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          showReadingTime: false,
         },
         theme: {
-          customCss: "./src/css/custom.css",
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+        gtag: {
+          trackingID: 'G-5RF5B25JHD',
+          anonymizeIP: true,
         },
       }),
     ],
   ],
 
+  scripts: [
+    '/js/ribbons.js',
+    'http://js.hs-scripts.com/39864506.js',
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: "img/docusaurus-social-card.jpg",
+      image: 'img/docusaurus-social-card.jpg',
+      announcementBar: {
+        id: 'support_us',
+        content:
+          '<a href="https://github.com/cloudberrydb/cloudberrydb" target="_blank">🎉️🎉️Cloudberry Database is open sourced now!</a>',
+        backgroundColor: '#fafbfc',
+        textColor: '#ed7331',
+        isCloseable: true,
+      },
       navbar: {
-        title: "My Site",
         logo: {
-          alt: "My Site Logo",
-          src: "img/logo.svg",
+          alt: 'Cloudberry Database',
+          src: '/img/cloudberrydb_color_black.svg',
+          srcDark: '/img/cloudberrydb_color_white.svg',
         },
+        hideOnScroll: false,
         items: [
           {
-            type: "docSidebar",
-            sidebarId: "tutorialSidebar",
-            position: "left",
-            label: "Tutorial",
+            type: 'docSidebar',
+            sidebarId: 'docsbars',
+            position: 'left',
+            label: 'Docs',
           },
-          { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://github.com/facebook/docusaurus",
-            label: "GitHub",
-            position: "right",
+            label: 'Community',
+            position: 'left',
+            items: [
+              {
+                label: 'Slack Guide',
+                to: '/community/slack',
+              },
+              {
+                label: 'WeChat Guide',
+                to: '/community/wechat',
+              },
+              {
+                label: 'Events',
+                to: '/community/events',
+              },
+              {
+                label: 'Security Policy',
+                to: '/community/security',
+              },
+              {
+                label: 'Brand Guidelines',
+                to: '/community/brand',
+              },
+              {
+                label: 'Code of Conduct',
+                to: '/community/coc',
+              }
+            ],
           },
-        ],
+          {
+            label: 'Contribute',
+            position: 'left',
+            items: [
+              {
+                label: 'How to Contribute',
+                to: '/contribute/how-to-contribute',
+              },
+              {
+                label: 'Working with Git & GitHub',
+                to: '/contribute/git',
+              },
+              {
+                label: 'Code Contribution',
+                to: '/contribute/code',
+              },
+              {
+                label: 'Proposal Guide',
+                to: '/contribute/proposal',
+              },
+              {
+                label: 'Document Contribution',
+                to: '/contribute/doc',
+              }
+            ],
+          },
+          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/download', label: 'Download', position: 'left'},
+          {to: '/support', label: 'Support', position: 'left'},
+	        {to: '/bootcamp', label: 'Bootcamp', position: 'left'},
+ {
+            href: repoUrl,
+            position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
+        }, {
+            href: twitterUrl,
+            position: 'right',
+            className: 'header-twitter-link',
+            'aria-label': '@cloudberrydb on Twitter',
+        }, {
+            href: youtubeUrl,
+            position: 'right',
+            className: 'header-youtube-link',
+            'aria-label': '@cloudberrydb on YouTube',
+        },{
+          href: slackUrl,
+          position: 'right',
+          className: 'header-slack-link',
+          'aria-label': '@cloudberrydb on Slack',
       },
-      footer: {
-        style: "dark",
-        links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Tutorial",
-                to: "/docs/intro",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
-              },
-              {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "Blog",
-                to: "/blog",
-              },
-              {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
-              },
-            ],
-          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        },
+      footer: {
+        style: 'dark',
+        logo: {
+          alt: 'Cloudberry Database Logo',
+          src: '/img/cloudberrydb_color_white.svg'
+        },
+        copyright: `Copyright © ${new Date().getFullYear()} HashData Technology Limited.`,
+        links: [
+            {
+              title: 'Support',
+              items: [
+                {
+                  label: 'GitHub Issues',
+                  href: 'https://github.com/cloudberrydb/cloudberrydb/issues',
+                },
+                {
+                  label: 'GitHub Discussions',
+                  href: 'https://github.com/orgs/cloudberrydb/discussions',
+                },
+                {
+                  label: 'Slack',
+                  href: 'https://communityinviter.com/apps/cloudberrydb/welcome',
+                },
+                {
+                  label: 'Twitter',
+                  href: 'https://twitter.com/cloudberrydb',
+                },
+                {
+                  label: 'Youtube',
+                  href: 'https://youtube.com/@cloudberrydb',
+                },
+                {
+                  label: 'Security',
+                  to: '/community/security',
+                },
+              ],
+            },
+            {
+              title: 'Resources',
+              items: [
+                {
+                  label: 'Download',
+                  to: '/download',
+                },
+                {
+                  label: 'Documentation',
+                  to: '/docs/',
+                },
+                {
+                  label: 'Events',
+                  to: '/community/events',
+                },
+                {
+                  label: 'Code of Conduct',
+                  href: '/community/coc',
+                },
+                {
+                  label: 'Brand Guidelines',
+                  href: '/community/brand',
+                },
+              ],
+            },
+            {
+              title: 'Contribution',
+              items: [
+                {
+                  label: 'Working with Git & GitHub',
+                  to: 'contribute/git',
+                },
+                {
+                  label: 'Contribution Overview',
+                  to: '/contribute/how-to-contribute',
+                },
+                {
+                  label: 'Code Contribution',
+                  to: 'contribute/code',
+                },
+                {
+                  label: 'Doc Contribution',
+                  to: 'contribute/doc',
+                },
+              ],
+            },
+          ],
       },
       prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
       },
     }),
-};
+  };
 
-export default config;
+module.exports = config;
